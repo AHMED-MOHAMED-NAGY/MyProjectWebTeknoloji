@@ -1,0 +1,10 @@
+.page{
+    background-color: #eee;
+}
+.p10{
+    padding: 10px;
+}
+.small-img {
+    max-width: 100px;
+    height: auto;
+}
