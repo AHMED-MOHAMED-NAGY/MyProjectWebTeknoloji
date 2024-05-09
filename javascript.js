@@ -1,10 +1,6 @@
-// var dm = document.getElementById("darkMode");
-// image.addEventListener('click', f1());
-//  function f1(){
-//     if (dm.src = "dark.png"){
-//         dm.src = "daymode.png";
-//     }
-//     if (dm.src = "daymode.png"){
-//         dm.src = "dark.png";
-//     }
-// }
+function darkmode(){
+    var dm = document.getElementById("darkmode");
+}
+function login(){
+    var log = document.getElementById("login");
+}
