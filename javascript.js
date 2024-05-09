@@ -2,5 +2,5 @@ function darkmode(){
     var dm = document.getElementById("darkmode");
 }
 function login(){
-    var log = document.getElementById("login");
+    window.location.href = "login.html";
 }
