@@ -34,3 +34,20 @@
     height:500px;
     width: auto;
 }
+.profile{
+    width: 200px;
+    height: 200px;
+    border-radius: 20%;
+    box-shadow: 0px 5px 25px 0px rgba(0,0,10,0.5);
+}
+.image-with-text {
+    display: flex;
+    align-items: center;
+}
+.myName-div{
+    padding: 70px;;
+    width: auto;
+    height: 200px;
+    border-radius: 20%;
+    background-color: #fdfdfd;
+}
