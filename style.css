@@ -1,13 +1,39 @@
+body{
+    display: flex;
+    flex-direction: column; 
+}
 .page{
-    background-color: #eee;
+    background-color: #ff959572;
+    font-size: 20px;
+    font-family: cursive;
 }
 .p10{
     padding: 10px;
 }
+.p10-top{
+    padding-top:10px;
+}
+.p20-left{
+    padding-left:20px;
+}
+.m5{
+    margin: 5px;
+}
+.m10{
+    margin: 10px;
+}
+.m20{
+    margin: 20px;
+}
+.w250{
+    width: 250px;
+}
+/* for icons */
 .small-img {
     max-width: 50px;
     height: auto;
 }
+/* footer's icons */
 .so-small-img {
     max-width: 20px;
     height: auto;
@@ -20,34 +46,60 @@
 }
 .footer{
     background-color: #eee;
+    text-align: center;
 }
 .footer2{
     background-color: #dddddd;
 }
-.m5{
-    margin: 5px;
-}
-.m10{
-    margin: 10px;
-}
+/* mycity.html size of the photos of the slider */
 .carousel-inner img{
     height:500px;
     width: auto;
 }
+/* mycity.hyml profile photo */
 .profile{
     width: 200px;
     height: 200px;
     border-radius: 20%;
     box-shadow: 0px 5px 25px 0px rgba(0,0,10,0.5);
 }
+/* profile photo and text */
 .image-with-text {
     display: flex;
     align-items: center;
 }
+/* mycity.html */
 .myName-div{
     padding: 70px;;
     width: auto;
     height: 200px;
     border-radius: 20%;
     background-color: #fdfdfd;
+}
+/* courses.html */
+@media (min-width: 992px){
+    .courses-page-input{
+        justify-content: space-between;
+        display: flex;
+    }
+}
+/* courses.html */
+.lists-of-programs{
+    display:flex;
+}
+/* courses.html */
+.pr-list1, .pr-list2{
+    flex:1;
+}
+/* courses */
+.border{
+    padding: 30px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 7px 7px 25px 0px;
+    background-color: rgb(255, 221, 221);
+}
+.center{
+    align-items: center;
 }
