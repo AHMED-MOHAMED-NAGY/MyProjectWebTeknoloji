@@ -1,9 +1,15 @@
 body{
     display: flex;
     flex-direction: column; 
+    background-image: url("fotos/backgound.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
 }
+/* nice color*/
+/* style="background-color: burlywood;" */
 .page{
-    background-color: #ff959572;
+    background-color: #ff95951b;
     font-size: 20px;
     font-family: cursive;
 }
@@ -44,7 +50,13 @@ body{
     width: 50px;
     height: 50px;
 }
+.navbar-nav .nav-link {
+    color: rgb(205, 60, 60); /* Change the font color of the navbar links */
+  }
 .footer{
+    bottom: 0;
+    position: fixed;
+    width: 100%;
     background-color: #eee;
     text-align: center;
 }
@@ -73,23 +85,40 @@ body{
     padding: 70px;;
     width: auto;
     height: 200px;
-    border-radius: 20%;
+    border-radius: 10px;
     background-color: #fdfdfd;
 }
 /* courses.html */
+@media (max-width: 991px) {
+    .courses-page-input{
+        width: auto;
+        display: block;
+        padding: 25px
+    }
+    .lists-of-programs{
+        display: block;
+    }
+    .w250{
+        width: auto;
+    }
+ /*   .footer{
+        position: relative;
+    }*/
+}
 @media (min-width: 992px){
+    /* courses.html */
     .courses-page-input{
         justify-content: space-between;
         display: flex;
     }
-}
-/* courses.html */
-.lists-of-programs{
-    display:flex;
-}
-/* courses.html */
-.pr-list1, .pr-list2{
-    flex:1;
+    /* courses.html */
+    .lists-of-programs{
+        display:flex;
+    }
+    /* courses.html */
+    .pr-list1, .pr-list2{
+        flex:1;
+    }
 }
 /* courses */
 .border{
