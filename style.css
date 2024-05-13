@@ -68,19 +68,31 @@ body{
     height:500px;
     width: auto;
 }
-/* mycity.hyml profile photo */
+/* cv.hyml profile photo */
 .profile{
     width: 200px;
     height: 200px;
     border-radius: 20%;
     box-shadow: 0px 5px 25px 0px rgba(0,0,10,0.5);
 }
+/* cv.html */
 /* profile photo and text */
-.image-with-text {
-    display: flex;
-    align-items: center;
+
+@media (max-width:991) {
+    /* cv.html */
+/* profile photo and text */
+    .image-with-text {
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+    
 }
-/* mycity.html */
+    
+/*  .image-with-text {
+        display: flex;
+    }*/
+/* cv.html */
 .myName-div{
     padding: 70px;;
     width: auto;
@@ -118,6 +130,12 @@ body{
     /* courses.html */
     .pr-list1, .pr-list2{
         flex:1;
+    }
+            /* cv.html */
+    /* profile photo and text */
+    .image-with-text {
+        display: flex;
+        align-items: center;
     }
 }
 /* courses */
