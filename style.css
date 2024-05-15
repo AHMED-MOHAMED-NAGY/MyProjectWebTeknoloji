@@ -150,3 +150,18 @@ body{
 .center{
     align-items: center;
 }
+
+.contactDiv{
+    background-color: #ffececc5;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.vueBtn{
+    background-color: #41B883; color: #34495E;
+}
+.jsBtn{
+    background-color: #F0DB4F; color: #323330;
+}
