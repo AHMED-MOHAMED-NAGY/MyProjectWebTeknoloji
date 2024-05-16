@@ -63,16 +63,16 @@
                 <input type="hidden" name="access_key" value="57b77d34-87b6-4feb-8fc5-459172a8fe91">
 
                 <label>Name:</label>
-                <input type="text" name="name" id ="name" v-model ="name">
+                <input type="text" id ="name" v-model ="name">
 
                 <label>Mail:</label>
-                <input type ="text" name="mail" id ="mail" v-model = "mail">
+                <input type ="text" id ="email" v-model = "email">
 
                 <label>Your message:</label>
-                <textarea id="message" name="message" v-model ="message"></textarea>
+                <textarea id="message" v-model ="message"></textarea>
 
-                <button class ="vueBtn" id="vueBtn">submit with Vue.js</button>
-                <button class ="jsBtn" id ="jsBtn">submit with javascript</button>
+                <button class ="btn btn-success vueBtn" id="vueBtn" onclick="submitWITHjs()">submit with Vue.js</button>
+                <button class ="btn btn-warning jsBtn" id ="jsBtn" onclick="submitWITHvue">submit with javascript</button>
                 
               </form>
             </div>
@@ -101,6 +101,68 @@
             </footer>
         </footer>
     </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          name: '',
+          email: '',
+          message: '',
+          submitted: false
+        },
+        methods: {
+          submitWITHvue() {
+            if (this.name && this.email && this.message) {
+              this.submitted = true;
+            } else {
+              alert('Please fill out all fields.');
+            }
+          }
+          inputName(fieldName) {
+          return `user_${fieldName}`;
+          }
+        }
+    });
+
+    // Javascript
+    function submitWITHjs() {
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var message = document.getElementById('message');
+  
+      if (name.trim() == '')
+      {
+        alert("please enter you name");
+        name.focus();
+      }
+      else
+      {
+        name.setAttribute("name","name");
+      }
+      if (email.trim() == ''||!emailRegex.test(email)) {
+        alert('Please enter your email address');
+        email.focus(); 
+      }
+      else 
+      {
+        email.setAttribute("name","email");
+      }
+      if (message.trim() == '') {
+        alert('Please enter your message');
+        return false;
+      }
+      else 
+      {
+        message.setAttribute("name","message");
+      }
+      function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    }
+    
+    </script>
 
     <script src="https://web3forms.com/client/script.js" async defer></script>
 
