@@ -56,26 +56,48 @@
                 <img class ="small-img p10" src ="fotos/darkmode.png"></img>
             </button>
           </nav>
-
+          <div style = "display: flex;  justify-content: center;">
+            <button class ="btn btn-success vueBtn m10 p10" id="vueBtn" onclick="continueWITHvue()">continue with Vue.js</button>
+            <button class ="btn btn-warning jsBtn m10 p10" id ="jsBtn" onclick="continueWITHjs()">continue with javascript</button>
+          </div>
+          
           <div class ="contactDiv">
+
+            <!-- form with vue.js -->
             <div id ="app">
-              <form action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="57b77d34-87b6-4feb-8fc5-459172a8fe91">
+              <form @submit.prevent="submitForm" id ="vueForm">
 
-                <label>Name:</label>
-                <input type="text" id ="name" v-model ="name">
+                <label class ="form-label">Name:</label>
+                <input type="text" id ="VUEname" name="name" class="form-control" v-model ="name"><br>
 
-                <label>Mail:</label>
-                <input type ="text" id ="email" v-model = "email">
+                <label class ="form-label">Mail:</label>
+                <input id ="VUEemail" class="form-control" name="email" type ="email" v-model = "email"><br>
 
-                <label>Your message:</label>
-                <textarea id="message" v-model ="message"></textarea>
+                <label class ="form-label">Your message:</label>
+                <textarea id="VUEmessage" class="form-control" name="message" v-model ="message"></textarea><br>
 
-                <button class ="btn btn-success vueBtn" id="vueBtn" onclick="submitWITHjs()">submit with Vue.js</button>
-                <button class ="btn btn-warning jsBtn" id ="jsBtn" onclick="submitWITHvue">submit with javascript</button>
-                
+                <button type="submit" class ="btn btn-success vueBtn" id="vueBtnSubmit">Vue.js</button>
+                <button type="button" class = "btn btn-danger" @click="clearForm">Clear</button>
               </form>
             </div>
+
+            <!-- form with javascript -->
+            <form method="POST" id ="jsForm">
+              <input type="hidden" name="access_key" value="57b77d34-87b6-4feb-8fc5-459172a8fe91">
+
+              <label class ="form-label">Name:</label>
+              <input type="text" id ="JSname" name="name" class="form-control"><br>
+
+              <label class ="form-label">Mail:</label>
+              <input id ="JSemail"name="email" class="form-control" type ="email"><br>
+
+              <label class ="form-label">Your message:</label>
+              <textarea id="JSmessage" name="message" class="form-control"></textarea><br>
+
+              <button type="submit" class ="btn btn-warning jsBtn" id ="jsBtnSubmit">javascript</button>
+              <div id="result"></div>
+
+            </form>
           </div>
 
         <footer class ="footer" style ="padding-top: 10px;">
@@ -102,68 +124,121 @@
         </footer>
     </div>
 
+<!--
+
+    <!- the script that used at vueForm ->
     <script>
-      var app = new Vue({
+      const WEB3FORMS_ACCESS_KEY = "57b77d34-87b6-4feb-8fc5-459172a8fe91";
+   
+      // Define Vue component
+      const App = new Vue({
         el: '#app',
-        data: {
-          name: '',
-          email: '',
-          message: '',
-          submitted: false
+        data() {
+          return {
+            name: "",
+            email: "",
+            message: "",
+          };
         },
         methods: {
-          submitWITHvue() {
-            if (this.name && this.email && this.message) {
-              this.submitted = true;
-            } else {
-              alert('Please fill out all fields.');
+          async submitForm() {
+            // Validate inputs
+            if (!this.name || !this.email || !this.message || !this.isValidEmail(this.email)) {
+              alert("Please fill in all fields correctly.");
+              return;
             }
-          }
-          inputName(fieldName) {
-          return `user_${fieldName}`;
-          }
-        }
-    });
 
-    // Javascript
-    function submitWITHjs() {
-      var name = document.getElementById('name');
-      var email = document.getElementById('email');
-      var message = document.getElementById('message');
-  
-      if (name.trim() == '')
-      {
-        alert("please enter you name");
-        name.focus();
-      }
-      else
-      {
-        name.setAttribute("name","name");
-      }
-      if (email.trim() == ''||!emailRegex.test(email)) {
-        alert('Please enter your email address');
-        email.focus(); 
-      }
-      else 
-      {
-        email.setAttribute("name","email");
-      }
-      if (message.trim() == '') {
-        alert('Please enter your message');
-        return false;
-      }
-      else 
-      {
-        message.setAttribute("name","message");
-      }
-      function isValidEmail(email) {
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-    }
-    
-    </script>
+            const response = await fetch("contact.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({
+                access_key: WEB3FORMS_ACCESS_KEY,
+                name: this.name,
+                email: this.email,
+                message: this.message,
+              }),
+            });
+            const result = await response.json();
+            if (result.success) {
+              alert("Message sent successfully!");
+              // Reset form fields
+              this.name = "";
+              this.email = "";
+              this.message = "";
+            } else {
+              alert("Message sending failed. Please try again later.");
+            }
+          },
+          isValidEmail(email) {
+            // Email validation regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+          },
+          clearForm() {
+            // Clear form fields
+            this.name = '';
+            this.email = '';
+            this.message = '';
+          }
+        },
+      });
+     </script>
 
+    -->
+
+    <!-- the script the used at jsForm -->
+    <script>
+      const form = document.getElementById('form');
+      const result = document.getElementById('result');
+      var name = document.getElementById("JSname").value;
+      var email = document.getElementById("JSemail").value;
+      var message = documnet.getElementById("JSmessage").value;
+      
+      if(name.trim()==''||email.trim()==''||message.trim()==''){
+        alert("please don\'t let any input empty");
+      }
+      else{
+      form.addEventListener('submit', function(e) {
+          const formData = new FormData(form);
+          e.preventDefault();
+      
+          const object = Object.fromEntries(formData);
+          const json = JSON.stringify(object);
+      
+          result.innerHTML = "Please wait..."
+      
+          fetch('https://api.web3forms.com/submit', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                  },
+                  body: json
+              })
+              .then(async (response) => {
+                  let json = await response.json();
+                  if (response.status == 200) {
+                      result.innerHTML = json.message;
+                  } else {
+                      console.log(response);
+                      result.innerHTML = json.message;
+                  }
+              })
+              .catch(error => {
+                  console.log(error);
+                  result.innerHTML = "Something went wrong!";
+              })
+              .then(function() {
+                  form.reset();
+                  setTimeout(() => {
+                      result.style.display = "none";
+                  }, 3000);
+              });
+      });}
+      </script>    
     <script src="https://web3forms.com/client/script.js" async defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
