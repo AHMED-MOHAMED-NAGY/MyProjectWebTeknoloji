@@ -95,6 +95,7 @@
               <textarea id="JSmessage" name="message" class="form-control"></textarea><br>
 
               <button type="submit" class ="btn btn-warning jsBtn" id ="jsBtnSubmit">javascript</button>
+              <button type="button" class = "btn btn-danger" onclick="clearTheFormWithJS()">Clear</button>
               <div id="result"></div>
 
             </form>
@@ -123,6 +124,99 @@
             </footer>
         </footer>
     </div>
+
+
+<!-- the script that used at vueForm -->
+<script>
+  const WEB3FORMS_ACCESS_KEY = "57b77d34-87b6-4feb-8fc5-459172a8fe91";
+
+  // Define Vue component
+  const App = new Vue({
+      el: '#app',
+      data() {
+          return {
+              name: "",
+              email: "",
+              message: "",
+          };
+      },
+      methods: {
+          async submitForm() {
+              // Validate inputs
+              if (!this.name || !this.email || !this.message || !this.isValidEmail(this.email)) {
+                  alert("Please fill in all fields correctly.");
+                  return;
+              }
+
+
+                  await Promise.all([
+                      this.submitToWeb3Forms(),
+                      this.submitToContactPHP()
+                  ]);
+
+                  // Reset form fields
+                  this.clearForm();
+
+                  alert("Messages sent successfully to both sites!");
+
+          },
+          async submitToWeb3Forms() {
+              const response = await fetch("https://api.web3forms.com/submit", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                  },
+                  body: JSON.stringify({
+                      access_key: WEB3FORMS_ACCESS_KEY,
+                      name: this.name,
+                      email: this.email,
+                      message: this.message,
+                  }),
+              });
+              const result = await response.json();
+              if (!result.success) {
+                  throw new Error("Message sending failed to Web3Forms.");
+              }
+          },
+          async submitToContactPHP() {
+              // You need to implement the logic to send data to contact.php
+              // This might involve using a similar fetch request as above, but with the appropriate endpoint and parameters.
+              // For example:
+              
+              const response = await fetch("contact.php", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                  },
+                  body: JSON.stringify({
+                      name: this.name,
+                      email: this.email,
+                      message: this.message,
+                  }),
+              });
+              const result = await response.json();
+              
+              localStorage.setItem('formData', JSON.stringify(result));
+              // Redirect to thank-you.html
+              window.location.href = 'thank-you.html';
+              
+          },
+          isValidEmail(email) {
+              // Email validation regex
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              return emailRegex.test(email);
+          },
+          clearForm() {
+              // Clear form fields
+              this.name = '';
+              this.email = '';
+              this.message = '';
+          }
+      },
+  });
+</script>
 
 <!--
 
@@ -189,55 +283,91 @@
 
     -->
 
-    <!-- the script the used at jsForm -->
+    <!-- the script that used at jsForm -->
     <script>
-      const form = document.getElementById('form');
+      const form = document.getElementById('jsForm');
       const result = document.getElementById('result');
-      var name = document.getElementById("JSname").value;
-      var email = document.getElementById("JSemail").value;
-      var message = documnet.getElementById("JSmessage").value;
-      
-      if(name.trim()==''||email.trim()==''||message.trim()==''){
-        alert("please don\'t let any input empty");
+      function clearTheFormWithJS(){
+        document.getElementById("JSname").value ="";
+        document.getElementById("JSemail").value ="";
+        document.getElementById("JSmessage").value ="";
       }
-      else{
-      form.addEventListener('submit', function(e) {
+      var name;
+      var email;
+      var message;
+
+      const isValidEmail = (email) => {
+          // Email validation regex
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+      }
+
+      const submitToWeb3Forms = async () => {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                access_key: WEB3FORMS_ACCESS_KEY,
+                name: name,
+                email: email,
+                message: message,
+            }),
+        });
+        const result = await response.json();
+        if (!result.success) {
+            throw new Error("Message sending failed to Web3Forms.");
+        }
+      }
+
+          const submitToContactPHP = async () => {
+              // You need to implement the logic to send data to contact.php
+              // This might involve using a similar fetch request as above, but with the appropriate endpoint and parameters.
+              // For example:
+              
+              const response = await fetch("contact.php", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                  },
+                  body: JSON.stringify({
+                      name: name,
+                      email: email,
+                      message: message,
+                  }),
+              });
+              const result = await response.json();
+              
+              localStorage.setItem('formData', JSON.stringify(result));
+              // Redirect to thank-you.html
+              window.location.href = 'thank-you.html';
+              
+          }
+
+      form.addEventListener('submit', async (e) => {
           const formData = new FormData(form);
           e.preventDefault();
+          name = document.getElementById("JSname").value;
+          email = document.getElementById("JSemail").value;
+          message = document.getElementById("JSmessage").value;
+          if (!name || !email || !message || !isValidEmail(email)) {
+              alert("Please fill in all fields correctly.");
+              return;
+          }
       
           const object = Object.fromEntries(formData);
           const json = JSON.stringify(object);
       
           result.innerHTML = "Please wait..."
       
-          fetch('https://api.web3forms.com/submit', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/json'
-                  },
-                  body: json
-              })
-              .then(async (response) => {
-                  let json = await response.json();
-                  if (response.status == 200) {
-                      result.innerHTML = json.message;
-                  } else {
-                      console.log(response);
-                      result.innerHTML = json.message;
-                  }
-              })
-              .catch(error => {
-                  console.log(error);
-                  result.innerHTML = "Something went wrong!";
-              })
-              .then(function() {
-                  form.reset();
-                  setTimeout(() => {
-                      result.style.display = "none";
-                  }, 3000);
-              });
-      });}
+          await Promise.all([
+              submitToWeb3Forms(),
+              submitToContactPHP()
+          ]);
+      });
       </script>    
     <script src="https://web3forms.com/client/script.js" async defer></script>
 
