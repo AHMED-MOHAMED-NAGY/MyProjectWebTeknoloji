@@ -34,6 +34,9 @@ body{
 .w250{
     width: 250px;
 }
+.w500{
+    width: 500px;
+}
 /* for icons */
 .small-img {
     max-width: 50px;
@@ -55,7 +58,7 @@ body{
   }
 .footer{
     bottom: 0;
-    position: fixed;
+    position: block;
     width: 100%;
     background-color: #eee;
     text-align: center;
@@ -137,6 +140,14 @@ body{
         display: flex;
         align-items: center;
     }
+    .hobbies{
+        justify-content: space-between;
+        display: flex;
+    }  
+    .hobbies div {
+        margin: 50px;
+        padding: 50px;
+    }  
 }
 /* courses */
 .border{
@@ -170,7 +181,10 @@ body{
 #jsForm{
     display: none;
 }
-.loginForm{
+.loginForm ,.paragraph ,.movies ,.games, .hobbiesILike ,.aboutMe{
     background-color: rgba(250, 235, 215, 0.703);
     border-radius:10px;
+}
+.searchClass{
+    background-color: #fdfdfd;
 }

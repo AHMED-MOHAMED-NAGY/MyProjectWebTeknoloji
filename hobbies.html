@@ -53,9 +53,68 @@
                 <img class ="small-img p10" src ="fotos/darkmode.png"></img>
             </button>
           </nav>
-            <div>
-                <h2>Movies I like</h2>
-                <ul id="movie-list"></ul>
+          <div class ="hobbies">
+                <div class ="movies">
+                    <h2 class ="p10">Movies I like</h2>
+                    <ul id="movie-list">
+                        <li>
+                            Avengers: Infinity War
+                        </li>
+                        <li>
+                            Captain America: Civil War
+                        </li>
+                        <li>
+                            World War Z
+                        </li>
+                        <li>
+                            War of the Worlds
+                        </li>
+                        <li>
+                            Lord of War
+                        </li>
+                        <li>
+                            War for the Planet of the Apes
+                        </li>
+                        <li>
+                            War Dogs
+                        </li>
+                        <li>
+                            The Tomorrow War
+                        </li>
+                        <li>
+                            This Means War
+                        </li>
+                        <li>
+                            War Horse
+                        </li>
+                    </ul>
+                </div>
+                <div class ="games">
+                    <h2 class ="p10">Games i play</h2>
+                    <ul class ="p10">
+                        <li>FootBall</li>
+                        <li>Chess
+                            <a href="https://www.chess.com/member/a7med1mo7amed"><button class ="btn btn-success">My account at Chess.com</button></a>
+                        </li>
+                        <li>Ping Pong</li>
+                        <li>Volley Ball</li>
+                    </ul>
+                </div>
+                <div class="hobbiesILike w500">
+                    <h2>Another hobbies i like</h2>
+                    <ul>
+                        <li>Photography</li>
+                        <li>Reading books</li>
+                        <li>Swimming</li>
+                        <li>Running</li>
+                    </ul>
+                </div>
+            </div>
+            <div class ="searchClass p10">
+                <h5>But if you want to search to another movies you can from this search</h5>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id ="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="fetchMovies()">Search</button>
+                <ul id = "searchUl"></ul>
             </div>
     
         <footer class ="footer" style ="padding-top: 10px;">
@@ -81,40 +140,43 @@
             </footer>
         </footer>
     </div>
-    <script>
-        // Your JavaScript code will go here
-        const apiKey = '626ad583';
-        const searchKeyword = 'war';
-        const movieList = document.getElementById('movie-list');
+<!-- Javascript that i used to API -->
+<script>
+    // Your JavaScript code will go here
+    const apiKey = '626ad583';
 
-        // Function to fetch and display movies
-        function fetchMovies() {
-            fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchKeyword}&type=movie`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.Response === 'True' && data.Search) {
-                        for (var movie of data.Search) {
-                            const li = document.createElement('li');
-                            li.textContent = movie.Title;
-                            movieList.appendChild(li);
-                        }
-                    } else {
+    // Function to fetch and display movies
+    function fetchMovies() {
+        const searchKind = document.getElementById('search').value;
+        const movieListSearch = document.getElementById('searchUl');
+        movieListSearch.innerHTML = ''; // Clear previous results
+
+        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchKind}&type=movie`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.Response === 'True' && data.Search) {
+                    for (let movie of data.Search) {
                         const li = document.createElement('li');
-                        li.textContent = 'No movies found in the war genre.';
-                        movieList.appendChild(li);
+                        li.textContent = movie.Title;
+                        movieListSearch.appendChild(li);
                     }
-                })
-                .catch(error => {
-                    console.error('Error fetching the movies:', error);
+                } else {
                     const li = document.createElement('li');
-                    li.textContent = 'Error fetching the movies. Please try again later.';
-                    movieList.appendChild(li);
-                });
-        }
+                    li.textContent = 'No movies found.';
+                    movieListSearch.appendChild(li);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching the movies:', error);
+                const li = document.createElement('li');
+                li.textContent = 'Error fetching the movies. Please try again later.';
+                movieListSearch.appendChild(li);
+            });
+    }
 
-        // Fetch movies when the page loads
-        window.onload = fetchMovies;
-    </script>
+    // Add event listener to the search button
+    document.getElementById('searchButton').addEventListener('click', fetchMovies);
+</script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src ="javascript.js"></script>
