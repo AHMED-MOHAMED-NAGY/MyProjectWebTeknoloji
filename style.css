@@ -81,16 +81,7 @@ body{
 /* cv.html */
 /* profile photo and text */
 
-@media (max-width:991) {
-    /* cv.html */
-/* profile photo and text */
-    .image-with-text {
-        display: block;
-        justify-content: center;
-        align-items: center;
-    }
-    
-}
+
     
 /*  .image-with-text {
         display: flex;
@@ -105,6 +96,13 @@ body{
 }
 /* courses.html */
 @media (max-width: 991px) {
+            /* cv.html */
+    /* profile photo and text */
+    .image-with-text {
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
     .courses-page-input{
         width: auto;
         display: block;
@@ -116,9 +114,22 @@ body{
     .w250{
         width: auto;
     }
+    .HomeButtons{
+        display: block;
+    }
+    .HomeButtons img{
+        width: 500px;
+        height: auto;
+    }
  /*   .footer{
         position: relative;
     }*/
+}
+@media (max-width :550px) {
+    .HomeButtons img{
+        width: 100%;
+        height: auto;
+    }
 }
 @media (min-width: 992px){
     /* courses.html */
@@ -148,6 +159,13 @@ body{
         margin: 50px;
         padding: 50px;
     }  
+    .HomeButtons{
+        display: flex;
+    }
+    .HomeButtons img{
+        width: auto;
+        height: 250px;
+    }
 }
 /* courses */
 .border{
@@ -182,9 +200,39 @@ body{
     display: none;
 }
 .loginForm ,.paragraph ,.movies ,.games, .hobbiesILike ,.aboutMe{
+    padding: 10px;
     background-color: rgba(250, 235, 215, 0.703);
     border-radius:10px;
 }
 .searchClass{
     background-color: #fdfdfd;
+}
+/*the projects button at index page*/
+
+.projects .PBtn{
+    background-color: #ffececc5;
+    display:flex;
+    border-radius: 10px;
+}
+
+
+.hobbiesBtn {
+    background-color: #ffececc5;
+    display:flex;
+    border-radius: 10px;   
+}
+
+
+.cameraBTN{
+    background-color: #ffececc5;
+    display:flex;
+    border-radius: 10px;   
+}
+
+.HomeButtons {
+    justify-content: center;
+}
+.HomeButtons a{
+    text-decoration: none;
+    color:#34495E;
 }

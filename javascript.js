@@ -16,3 +16,17 @@ function continueWITHjs(){
     jsForm.style.display = "block";
     vueForm.style.display = 'none';
 }
+
+// change button bacground
+function BGgreen(x){
+    x.style.backgroundColor = "#E0D390";
+};
+function NormalBg(x){
+    x.style.backgroundColor = "#ffececc5";
+}
+function BGWhite(x){
+    x.style.backgroundColor = "#E3DAC3";
+}
+function BGYelow(x){
+    x.style.backgroundColor = "#E0DC8F";
+}
