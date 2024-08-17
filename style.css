@@ -214,6 +214,10 @@ body{
     display:flex;
     border-radius: 10px;
 }
+.HomeButtons button:hover {
+    scale: 1.125;
+    transition: 0.4s;
+}
 
 
 .hobbiesBtn {
